@@ -1,0 +1,13 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: fraud-producer
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: producer
+          image: fraud-api:latest
+          imagePullPolicy: IfNotPresent
+          command: ["python", "-m", "src.streaming.producer", "--speed", "100"]

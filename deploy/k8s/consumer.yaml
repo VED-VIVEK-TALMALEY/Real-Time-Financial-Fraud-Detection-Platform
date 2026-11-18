@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fraud-consumer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fraud-consumer
+  template:
+    metadata:
+      labels:
+        app: fraud-consumer
+    spec:
+      containers:
+        - name: consumer
+          image: fraud-api:latest
+          imagePullPolicy: IfNotPresent
+          command: ["python", "-m", "src.streaming.consumer"]
